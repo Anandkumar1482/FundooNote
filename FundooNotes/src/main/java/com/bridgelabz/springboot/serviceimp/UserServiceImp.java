@@ -8,46 +8,40 @@ import com.bridgelabz.springboot.UserDto.LoginUserDto;
 import com.bridgelabz.springboot.UserDto.RegistorUserDto;
 import com.bridgelabz.springboot.repository.UserRepository;
 import com.bridgelabz.springboot.service.UserService;
-import com.bridgelabz.springboot.util.Utility;
 
 @Service
 public class UserServiceImp implements UserService {
-	@Autowired
-	private Utility util;
 
 	@Autowired
 	private UserRepository repository;
 
 	@Override
-	public void addUsers(RegistorUserDto registerUserDto) {
-
+	public boolean addUsers(RegistorUserDto registerUserDto) {
+		boolean response = false;
 		UserModel user = new UserModel();
 		user.setFirstname(registerUserDto.getFirstname());
 		user.setLastname(registerUserDto.getLastname());
 		user.setUsername(registerUserDto.getUsername());
 		user.setPassword(registerUserDto.getPassword());
 		user.setEmail(registerUserDto.getEmail());
+		user.setRe_enter_password(registerUserDto.getRe_enter_password());
 		user.setPhonenumber(registerUserDto.getPhonenumber());
 
 		repository.save(user);
+		return response;
 
 	}
 
 	@Override
-	public void getByEmail(String email) {
-	
-	}
+	public void getByEmail(LoginUserDto loginUserDto) {
 
-	
+		UserModel usermodel = repository.getByEmail(loginUserDto.getEmail());
 
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		if (usermodel.getEmail().equals(loginUserDto.getEmail())
+				&& usermodel.getPassword().equals(loginUserDto.getPassword()));
+		{
+			System.out.println("login user");
+		}
+			
+}
 }
