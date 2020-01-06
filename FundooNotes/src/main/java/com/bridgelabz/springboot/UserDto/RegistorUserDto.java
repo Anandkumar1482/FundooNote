@@ -2,6 +2,7 @@ package com.bridgelabz.springboot.UserDto;
 
 public class RegistorUserDto {
 
+	private int id;
 
 	private String firstname;
 
@@ -10,14 +11,13 @@ public class RegistorUserDto {
 	private String username;
 
 	private String password;
-	
+
 	private String re_enter_password;
 
 	private String email;
 
 	private long phonenumber;
 
-	
 	public String getFirstname() {
 		return firstname;
 	}
@@ -50,6 +50,14 @@ public class RegistorUserDto {
 		this.password = password;
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -76,10 +84,11 @@ public class RegistorUserDto {
 
 	@Override
 	public String toString() {
-		return "UserDto [firstname=" + firstname + ", lastname=" + lastname + ", username=" + username + ", password="
-				+ password + ", re_enter_password=" + re_enter_password + ", email=" + email + ", phonenumber="
-				+ phonenumber + "]";
+		return "RegistorUserDto [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", username="
+				+ username + ", password=" + password + ", re_enter_password=" + re_enter_password + ", email=" + email
+				+ ", phonenumber=" + phonenumber + "]";
 	}
 
 	
+
 }

@@ -8,5 +8,7 @@ import com.bridgelabz.springboot.Model.UserModel;
 
 public interface UserRepository extends JpaRepository<UserModel, Long> {
  
-	UserModel getByEmail(String email);
+	UserModel findByEmail(String email);
+
+	void deleteById(int id);
 }

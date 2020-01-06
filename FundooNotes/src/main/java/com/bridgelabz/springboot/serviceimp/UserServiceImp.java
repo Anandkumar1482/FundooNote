@@ -16,32 +16,62 @@ public class UserServiceImp implements UserService {
 	private UserRepository repository;
 
 	@Override
-	public boolean addUsers(RegistorUserDto registerUserDto) {
-		boolean response = false;
-		UserModel user = new UserModel();
-		user.setFirstname(registerUserDto.getFirstname());
-		user.setLastname(registerUserDto.getLastname());
-		user.setUsername(registerUserDto.getUsername());
-		user.setPassword(registerUserDto.getPassword());
-		user.setEmail(registerUserDto.getEmail());
-		user.setRe_enter_password(registerUserDto.getRe_enter_password());
-		user.setPhonenumber(registerUserDto.getPhonenumber());
+	public boolean saveUsers(RegistorUserDto registerUserDto) {
+		
+		boolean status = true;
+		UserModel userModel = new UserModel();
+		userModel.setFirstname(registerUserDto.getFirstname());
+		userModel.setLastname(registerUserDto.getLastname());
+		userModel.setUsername(registerUserDto.getUsername());
+		userModel.setPassword(registerUserDto.getPassword());
+		userModel.setEmail(registerUserDto.getEmail());
+		userModel.setRe_enter_password(registerUserDto.getRe_enter_password());
+		userModel.setPhonenumber(registerUserDto.getPhonenumber());
+		if(status) {
+			repository.save(userModel);
+			return status;
+		}
+	
+		return false;
 
-		repository.save(user);
-		return response;
-
+	}
+	@Override
+	public LoginUserDto getUser(String email) {
+		
+		LoginUserDto loginUserDto=new LoginUserDto();
+		
+		UserModel userModel=repository.findByEmail(email);
+		
+		loginUserDto.setEmail(userModel.getEmail());
+		loginUserDto.setPassword(userModel.getPassword());
+		return loginUserDto;
 	}
 
 	@Override
-	public void getByEmail(LoginUserDto loginUserDto) {
+	public boolean userUPDATE(RegistorUserDto registrationUserDto) {
+		
+		UserModel userModel = new UserModel();
+		boolean status=true;
+		userModel.setId(registrationUserDto.getId());
+		userModel.setFirstname(registrationUserDto.getFirstname());
+		userModel.setLastname(registrationUserDto.getLastname());
+		userModel.setUsername(registrationUserDto.getUsername());
+		userModel.setPassword(registrationUserDto.getPassword());
+		userModel.setEmail(registrationUserDto.getEmail());
+		userModel.setRe_enter_password(registrationUserDto.getRe_enter_password());
+		userModel.setPhonenumber(registrationUserDto.getPhonenumber());
 
-		UserModel usermodel = repository.getByEmail(loginUserDto.getEmail());
-
-		if (usermodel.getEmail().equals(loginUserDto.getEmail())
-				&& usermodel.getPassword().equals(loginUserDto.getPassword()));
-		{
-			System.out.println("login user");
+		if(status) {
+			repository.save(userModel);
+			return status;
 		}
-			
+		return false;
+	}
+
+	@Override
+	public void deleteUser(int id) {
+		repository.deleteById(id);
+	}
+
 }
-}
+
